@@ -1,4 +1,6 @@
-var notes = require("../db/db.json")
+let notes = require("../db/db.json");
+const fs = require("fs");
+const uid = require ("uid");
 
 
 module.exports = function(app) {
@@ -6,49 +8,57 @@ module.exports = function(app) {
        return res.json(notes);
 
     });
-    
-    app.get("/api/notes/:id", function(req, res){
-        const noteId = notes(req.params.id);
-        // res.json(noteId);
-        
-        const getNote = notes.find((note) => note.id === noteId);
-        console.log(getNote);
-        if (!getNote) {
-            res.status(500).send("Note not found")
-        } else {
-            res.json(getNote);
+    const save = () => {
+      fs.writeFile("./db/db.json", JSON.stringify(notes, null, 2),error =>{
+        if (error) {
+          throw error;
         }
-        console.log(getNote);
-    });
+      });
+
+    }
+    
+    // app.get("/api/notes/:id", function(req, res){
+    //     const noteId = req.params.id;
+    //     // res.json(noteId);
+        
+    //     const getNote = notes.find((note) => note.id === noteId);
+    //     console.log(getNote);
+    //     if (!getNote) {
+    //         res.status(500).send("Note not found")
+    //     } else {
+    //         res.json(getNote);
+    //     }
+    //     console.log(getNote);
+    // });
     app.post("/api/notes", function(req, res){
-      // var newNote = {
-      //   title:req.body.title,
-      //   id: title.length,
-      //   text: req.body.text
-      // } ;
-      // notes.push(newNote);
-      // res.json(notes);
-      // console.log(notes);
-      const savedNotes = req.body;
-        notes.push(savedNotes);
-            res.json(notes);
-            console.log(notes);
+      var newNote = {
+        id: uid(),
+        title:req.body.title,
+        text: req.body.text
+      } ;
+      notes.push(newNote);
+      save();
+      res.json(notes);
+      console.log(notes);
+      // const savedNotes = req.body;
+      //   notes.push(savedNotes);
+      //       res.json(notes);
+      //       console.log(notes);
 
         
     });
     app.delete(`/api/notes/:id`, (req, res) => {
- noteId = Number(req.params.id);
+    noteId = req.params.id;
+    console.log(noteId);
         const newNote = notes.filter((note) => note.id != noteId);
       
-        if (!newNote) {
-          res.status(500).send('note not found.');
-        } else {
           notes = newNote;
+          save();
           res.send(notes);
-        }
+       
       });
     
-}
+ }
 /*// Routes
 // =============================================================
 
