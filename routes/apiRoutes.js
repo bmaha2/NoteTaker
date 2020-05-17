@@ -31,10 +31,8 @@ module.exports = function (app) {
     noteId = req.params.id;
     console.log(noteId);
     const newNote = notes.filter((note) => note.id != noteId);
-
     notes = newNote;
     save();
     res.send(notes);
-
   });
 }

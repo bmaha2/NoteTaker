@@ -1,29 +1,19 @@
-Create an application that can be used to write, save, and delete notes. This application will use an express backend and save and retrieve note data from a JSON file.
-The application frontend has already been created, it's your job to build the backend and connect the two.
-The following HTML routes should be created:
-GET /notes - Should return the notes.html file.
-GET * - Should return the index.html file
-The application should have a db.json file on the backend that will be used to store and retrieve notes using the fs module.
-The following API routes should be created:
+# Note Taker
+### Heroku link
+### https://guarded-harbor-64602.herokuapp.com/
 
-GET /api/notes - Should read the db.json file and return all saved notes as JSON.
+# Description
+* LET users to create and save notes.
+* LET users to view previously saved notes.
+* LET users to delete previously saved notes.
 
-POST /api/notes - Should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client.
+![screenshot](https://user-images.githubusercontent.com/58144039/82106893-bad75d00-96d8-11ea-9d79-dcd8c48a4be0.PNG)
+![screenshot](https://user-images.githubusercontent.com/58144039/82106921-e35f5700-96d8-11ea-906f-07785879ce42.PNG)
+![screenshot](https://user-images.githubusercontent.com/58144039/82106981-2c171000-96d9-11ea-82b0-849a16e3c591.PNG)
 
-DELETE /api/notes/:id - Should receive a containing the id of a note to delete. This means you'll need to find a way to give each note a unique id when it's saved. In order to delete a note, you'll need to read all notes from the db.json file, remove the note with the given id property, and then rewrite the notes to the db.json file.
+![screenshot](https://user-images.githubusercontent.com/58144039/82133509-e114ff80-97a1-11ea-935a-e6572fad2ceb.PNG)
 
-User Story
-AS A user, I want to be able to write and save notes
-I WANT to be able to delete notes I've written before
-SO THAT I can organize my thoughts and keep track of tasks I need to complete
+# Dependencies
+* express
+* uid
 
-Business Context
-For users that need to keep track of a lot of information, it's easy to forget or be unable to recall something important. Being able to take persistent notes allows users to have written information available when needed.
-
-Acceptance Criteria
-Application should allow users to create and save notes.
-Application should allow users to view previously saved notes.
-Application should allow users to delete previously saved notes.
-
-Hint
-Express needs middleware for serving static resources, i.e. serving what is in the public folder. What is that middleware?
